@@ -1,0 +1,49 @@
+local plr = game.Players.LocalPlayer
+	while wait(.5) do
+		local char = game:GetService('Players').LocalPlayer.Character
+
+		if char.Humanoid.Health < 2 then
+			wait()
+			char:FindFirstChild('RagdollConstraints'):Destroy()
+			char:FindFirstChild('BodyEffects').SpecialParts:Destroy()
+			char:FindFirstChild('Health').SpecialParts:Destroy()
+			char:FindFirstChild('Animate').SpecialParts:Destroy()
+			wait()
+			char.HumanoidRootPart.CFrame = CFrame.new(100,3000,100)
+			char.HumanoidRootPart.CFrame = CFrame.new(100,3000,100)
+		end
+	end
+end)
+
+script.Parent.Click_TP.MouseButton1Click:Connect(function(TP)
+	game.StarterGui:SetCoreGuiEnabled(2, true)
+	mouse = game.Players.LocalPlayer:GetMouse()
+	tool = Instance.new("Tool")
+	tool.RequiresHandle = false
+	tool.Name = "Click Teleport"
+	tool.Activated:connect(function()
+		local pos = mouse.Hit+Vector3.new(0,2.5,0)
+		pos = CFrame.new(pos.X,pos.Y,pos.Z)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+	end)
+	tool.Parent = game.Players.LocalPlayer.Backpack
+end)
+
+script.Parent.Low_Gravity.MouseButton1Click:Connect(function(Gravity)
+
+	local jp = Vector3.new(0, 2500, 0)
+	local a = Instance.new("BodyForce")
+	a.Parent = plr.Character.HumanoidRootPart
+	a.Force = jp
+end)
+
+script.Parent.Melee_Reach.MouseButton1Click:Connect(function()
+	for i,v in pairs(game:GetService'Players'.LocalPlayer.Character:GetChildren())do
+		if v:isA("Tool") then
+			local a = Instance.new("SelectionBox",v.Handle)
+			a.Adornee = v.Handle
+			v.Handle.Size = Vector3.new(0.11,0.0,300)
+			v.GripPos = Vector3.new(0,0,0)
+			plr.Character.Humanoid:UnequipTools()
+		end
+	end          
